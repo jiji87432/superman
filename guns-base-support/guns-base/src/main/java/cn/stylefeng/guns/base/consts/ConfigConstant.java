@@ -18,6 +18,7 @@ public interface ConfigConstant {
     String CARD_DICT_PAYWAY="CARD_TYPE"; //经费卡类型
     String CARD_DICT_TYPE="CARD_NATURE"; //经费卡性质
     String STATUS="STATUS"; //状态
+    String LOTTERY_TYPE="LOTTERY_TYPE"; //彩票类型
 
     /**
      * 经费卡性质
