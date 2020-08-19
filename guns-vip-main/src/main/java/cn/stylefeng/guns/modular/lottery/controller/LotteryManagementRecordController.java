@@ -9,6 +9,7 @@ import cn.stylefeng.guns.sys.modular.system.entity.Dict;
 import cn.stylefeng.guns.sys.modular.system.model.result.DictResult;
 import cn.stylefeng.guns.sys.modular.system.service.DeptService;
 import cn.stylefeng.guns.sys.modular.system.service.DictService;
+import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 import static cn.stylefeng.guns.base.consts.ConfigConstant.CARD_DICT_TYPE;
 import static cn.stylefeng.guns.base.consts.ConfigConstant.LOTTERY_TYPE;
@@ -43,6 +45,8 @@ public class LotteryManagementRecordController extends BaseController {
     private DictService dictService;
     @Autowired
     private DeptService deptService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 跳转到主页面
@@ -104,6 +108,7 @@ public class LotteryManagementRecordController extends BaseController {
         if (!ObjectUtils.isEmpty(dept)) {
             lotteryManagementRecordParam.setDeptName(dept.getFullName());
         }
+        Map<String, Object> map = userService.getUserInfo(lotteryManagementRecordParam.getCreateUser());
         this.lotteryManagementRecordService.add(lotteryManagementRecordParam);
         return ResponseData.success();
     }

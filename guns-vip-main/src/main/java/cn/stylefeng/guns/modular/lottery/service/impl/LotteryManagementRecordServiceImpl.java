@@ -6,12 +6,13 @@ import cn.stylefeng.guns.modular.lottery.entity.LotteryManagementRecord;
 import cn.stylefeng.guns.modular.lottery.mapper.LotteryManagementRecordMapper;
 import cn.stylefeng.guns.modular.lottery.model.params.LotteryManagementRecordParam;
 import cn.stylefeng.guns.modular.lottery.model.result.LotteryManagementRecordResult;
-import  cn.stylefeng.guns.modular.lottery.service.LotteryManagementRecordService;
+import cn.stylefeng.guns.modular.lottery.service.LotteryManagementRecordService;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -28,18 +29,18 @@ import java.util.List;
 public class LotteryManagementRecordServiceImpl extends ServiceImpl<LotteryManagementRecordMapper, LotteryManagementRecord> implements LotteryManagementRecordService {
 
     @Override
-    public void add(LotteryManagementRecordParam param){
+    public void add(LotteryManagementRecordParam param) {
         LotteryManagementRecord entity = getEntity(param);
         this.save(entity);
     }
 
     @Override
-    public void delete(LotteryManagementRecordParam param){
+    public void delete(LotteryManagementRecordParam param) {
         this.removeById(getKey(param));
     }
 
     @Override
-    public void update(LotteryManagementRecordParam param){
+    public void update(LotteryManagementRecordParam param) {
         LotteryManagementRecord oldEntity = getOldEntity(param);
         LotteryManagementRecord newEntity = getEntity(param);
         ToolUtil.copyProperties(newEntity, oldEntity);
@@ -47,23 +48,23 @@ public class LotteryManagementRecordServiceImpl extends ServiceImpl<LotteryManag
     }
 
     @Override
-    public LotteryManagementRecordResult findBySpec(LotteryManagementRecordParam param){
+    public LotteryManagementRecordResult findBySpec(LotteryManagementRecordParam param) {
         return null;
     }
 
     @Override
-    public List<LotteryManagementRecordResult> findListBySpec(LotteryManagementRecordParam param){
+    public List<LotteryManagementRecordResult> findListBySpec(LotteryManagementRecordParam param) {
         return null;
     }
 
     @Override
-    public LayuiPageInfo findPageBySpec(LotteryManagementRecordParam param){
+    public LayuiPageInfo findPageBySpec(LotteryManagementRecordParam param) {
         Page pageContext = getPageContext();
         IPage page = this.baseMapper.customPageList(pageContext, param);
         return LayuiPageFactory.createPageInfo(page);
     }
 
-    private Serializable getKey(LotteryManagementRecordParam param){
+    private Serializable getKey(LotteryManagementRecordParam param) {
         return param.getId();
     }
 
