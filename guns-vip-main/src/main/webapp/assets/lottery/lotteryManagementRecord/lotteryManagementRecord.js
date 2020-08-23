@@ -23,12 +23,13 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             {field: 'deptId', hide: true, sort: true, title: '门店ID'},
             {field: 'deptName', hide: false, sort: true, title: '门店'},
             {field: 'lotteryType', hide: true, sort: true, title: '彩票类型'},
-            {field: 'lotteryTypeDescription', sort: true, title: '彩票描述'},
+            {field: 'lotteryTypeDescription', sort: true, title: '彩票'},
             {field: 'salesVolume', sort: true, title: '销量'},
             {field: 'commission', sort: true, title: '佣金'},
             {field: 'status', hide: true, sort: true, title: '状态(字典)'},
+            {field: 'account', hide: false, sort: true, title: '创建用户'},
             {field: 'createTime', sort: true, title: '创建时间'},
-            {field: 'createUser', sort: true, title: '创建人'},
+            {field: 'createUser', hide: true, sort: true, title: '创建人'},
             {field: 'updateTime', hide: true, sort: true, title: '更新时间'},
             {field: 'updateUser', hide: true, sort: true, title: '更新人'},
             {field: 'version', hide: true, sort: true, title: '乐观锁'},
@@ -42,8 +43,9 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
      */
     LotteryManagementRecord.search = function () {
         var queryData = {};
-
-
+        queryData['account'] = $('#account').val();
+        queryData['lotteryType'] = $('#lotteryType').val();
+        queryData['deptId'] = $('#deptId').val();
         table.reload(LotteryManagementRecord.tableId, {
             where: queryData, page: {curr: 1}
         });

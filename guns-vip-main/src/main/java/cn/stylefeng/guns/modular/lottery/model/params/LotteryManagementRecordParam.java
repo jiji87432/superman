@@ -69,6 +69,7 @@ public class LotteryManagementRecordParam implements Serializable, BaseValidatin
      * 创建人
      */
     private Long createUser;
+    private String account;
 
     /**
      * 更新时间

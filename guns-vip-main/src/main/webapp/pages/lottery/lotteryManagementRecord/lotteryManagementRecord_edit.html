@@ -9,7 +9,7 @@
                     <input name="id" type="hidden"/>
 
                     <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">彩票类型(字典)<span style="color: red;">*</span></label>
+                        <label class="layui-form-label">彩票类型<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
                             <select id="lotteryType" name="lotteryType" lay-filter="dataSourceId" required>
                                 <option value=""></option>
@@ -42,6 +42,12 @@
                                 <option value="${item.deptId}">${item.fullName}</option>
                                 @}
                             </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">其他说明<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="extend" name="extend" placeholder="请输入扩展字段" type="text" class="layui-input"/>
                         </div>
                     </div>
                 </div>

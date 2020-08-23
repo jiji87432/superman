@@ -68,6 +68,7 @@ public class LotteryManagementRecordResult implements Serializable {
      * 创建人
      */
     private Long createUser;
+    private String account;
 
     /**
      * 更新时间

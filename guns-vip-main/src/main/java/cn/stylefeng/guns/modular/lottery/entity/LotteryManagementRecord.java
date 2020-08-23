@@ -76,6 +76,9 @@ public class LotteryManagementRecord implements Serializable {
     @TableField("status")
     private String status;
 
+    @TableField("account")
+    private String account;
+
     /**
      * 创建时间
      */

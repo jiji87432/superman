@@ -12,13 +12,37 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline">
-                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
-                                <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
-                                <button id="btnExp" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出</button>
+                                <input id="account" class="layui-input" type="text" placeholder="用户名"
+                                       autocomplete="off"/>
+                            </div>
+                            <div class="layui-inline">
+                                <select id="lotteryType" name="lotteryType" lay-filter="dataSourceId" required>
+                                    <option value=""></option>
+                                    @for(item in dictType!){
+                                    <option value="${item.dictId}">${item.name}</option>
+                                    @}
+                                </select>
+                            </div>
+                            <div class="layui-inline">
+                                <select id="deptId" name="deptId" lay-filter="dataSourceId" required>
+                                    <option value=""></option>
+                                    @for(item in depts!){
+                                    <option value="${item.deptId}">${item.fullName}</option>
+                                    @}
+                                </select>
+                            </div>
+                            <div class="layui-inline">
+                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索
+                                </button>
+                                <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加
+                                </button>
+                                <button id="btnExp" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <table class="layui-table" id="lotteryManagementRecordTable" lay-filter="lotteryManagementRecordTable"></table>
+                    <table class="layui-table" id="lotteryManagementRecordTable"
+                           lay-filter="lotteryManagementRecordTable"></table>
                 </div>
             </div>
         </div>

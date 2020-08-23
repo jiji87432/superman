@@ -1,11 +1,14 @@
 package cn.stylefeng.guns.modular.lottery.controller;
 
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.lottery.entity.LotteryManagementRecord;
 import cn.stylefeng.guns.modular.lottery.model.params.LotteryManagementRecordParam;
 import cn.stylefeng.guns.modular.lottery.service.LotteryManagementRecordService;
 import cn.stylefeng.guns.sys.modular.system.entity.Dept;
 import cn.stylefeng.guns.sys.modular.system.entity.Dict;
+import cn.stylefeng.guns.sys.modular.system.factory.UserFactory;
 import cn.stylefeng.guns.sys.modular.system.model.result.DictResult;
 import cn.stylefeng.guns.sys.modular.system.service.DeptService;
 import cn.stylefeng.guns.sys.modular.system.service.DictService;
@@ -55,7 +58,11 @@ public class LotteryManagementRecordController extends BaseController {
      * @Date 2020-08-10
      */
     @RequestMapping("")
-    public String index() {
+    public String index(Model model) {
+        List<Dict> dictType = dictService.listDictsByCode(LOTTERY_TYPE);
+        model.addAttribute("dictType", dictType);
+        List<Dept> depts = deptService.list();
+        model.addAttribute("depts", depts);
         return PREFIX + "/lotteryManagementRecord.html";
     }
 
@@ -108,7 +115,10 @@ public class LotteryManagementRecordController extends BaseController {
         if (!ObjectUtils.isEmpty(dept)) {
             lotteryManagementRecordParam.setDeptName(dept.getFullName());
         }
-        Map<String, Object> map = userService.getUserInfo(lotteryManagementRecordParam.getCreateUser());
+        LoginUser user = LoginContextHolder.getContext().getUser();
+        if (!ObjectUtils.isEmpty(user)) {
+            lotteryManagementRecordParam.setAccount(user.getAccount());
+        }
         this.lotteryManagementRecordService.add(lotteryManagementRecordParam);
         return ResponseData.success();
     }
@@ -122,6 +132,10 @@ public class LotteryManagementRecordController extends BaseController {
     @RequestMapping("/editItem")
     @ResponseBody
     public ResponseData editItem(LotteryManagementRecordParam lotteryManagementRecordParam) {
+        DictResult dictResult = dictService.dictDetail(Long.valueOf(lotteryManagementRecordParam.getLotteryType()));
+        if (!ObjectUtils.isEmpty(dictResult)) {
+            lotteryManagementRecordParam.setLotteryTypeDescription(dictResult.getName());
+        }
         this.lotteryManagementRecordService.update(lotteryManagementRecordParam);
         return ResponseData.success();
     }

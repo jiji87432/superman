@@ -8,9 +8,11 @@ import cn.stylefeng.guns.modular.lottery.model.params.LotteryManagementRecordPar
 import cn.stylefeng.guns.modular.lottery.model.result.LotteryManagementRecordResult;
 import cn.stylefeng.guns.modular.lottery.service.LotteryManagementRecordService;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -60,7 +62,17 @@ public class LotteryManagementRecordServiceImpl extends ServiceImpl<LotteryManag
     @Override
     public LayuiPageInfo findPageBySpec(LotteryManagementRecordParam param) {
         Page pageContext = getPageContext();
-        IPage page = this.baseMapper.customPageList(pageContext, param);
+        QueryWrapper<LotteryManagementRecord> objectQueryWrapper = new QueryWrapper<>();
+        if (!ObjectUtils.isEmpty(param.getAccount())) {
+            objectQueryWrapper.eq("account", param.getAccount());
+        }
+        if (!ObjectUtils.isEmpty(param.getLotteryType())) {
+            objectQueryWrapper.eq("lottery_type", param.getLotteryType());
+        }
+        if (!ObjectUtils.isEmpty(param.getDeptId())) {
+            objectQueryWrapper.eq("dept_id", param.getDeptId());
+        }
+        IPage page = this.page(pageContext, objectQueryWrapper);
         return LayuiPageFactory.createPageInfo(page);
     }
 
