@@ -23,8 +23,10 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static cn.stylefeng.guns.base.consts.ConfigConstant.CARD_DICT_TYPE;
 import static cn.stylefeng.guns.base.consts.ConfigConstant.LOTTERY_TYPE;
@@ -61,8 +63,24 @@ public class LotteryManagementRecordController extends BaseController {
     public String index(Model model) {
         List<Dict> dictType = dictService.listDictsByCode(LOTTERY_TYPE);
         model.addAttribute("dictType", dictType);
-        List<Dept> depts = deptService.list();
-        model.addAttribute("depts", depts);
+        LoginUser user = LoginContextHolder.getContext().getUser();
+        if (!ObjectUtils.isEmpty(user) && !ObjectUtils.isEmpty(user.getRoleTips()) && user.getRoleTips().size() > 0) {
+            AtomicBoolean isSuper = new AtomicBoolean(false);
+            List<Dept> depts = new ArrayList<>();
+            user.getRoleTips().forEach(role -> {
+                if (role.equals("administrator")) {
+                    isSuper.set(true);
+                }
+            });
+            if (isSuper.get()) {
+                depts = deptService.list();
+            } else {
+                QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("dept_id", user.getDeptId());
+                depts = deptService.list(queryWrapper);
+            }
+            model.addAttribute("depts", depts);
+        }
         return PREFIX + "/lotteryManagementRecord.html";
     }
 
@@ -76,8 +94,24 @@ public class LotteryManagementRecordController extends BaseController {
     public String add(Model model) {
         List<Dict> dictType = dictService.listDictsByCode(LOTTERY_TYPE);
         model.addAttribute("dictType", dictType);
-        List<Dept> depts = deptService.list();
-        model.addAttribute("depts", depts);
+        LoginUser user = LoginContextHolder.getContext().getUser();
+        if (!ObjectUtils.isEmpty(user) && !ObjectUtils.isEmpty(user.getRoleTips()) && user.getRoleTips().size() > 0) {
+            AtomicBoolean isSuper = new AtomicBoolean(false);
+            List<Dept> depts = new ArrayList<>();
+            user.getRoleTips().forEach(role -> {
+                if (role.equals("administrator")) {
+                    isSuper.set(true);
+                }
+            });
+            if (isSuper.get()) {
+                depts = deptService.list();
+            } else {
+                QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("dept_id", user.getDeptId());
+                depts = deptService.list(queryWrapper);
+            }
+            model.addAttribute("depts", depts);
+        }
         return PREFIX + "/lotteryManagementRecord_add.html";
     }
 

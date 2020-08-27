@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.modular.lottery.service.impl;
 
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
 import cn.stylefeng.guns.modular.lottery.entity.LotteryManagementRecord;
@@ -12,12 +14,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * <p>
@@ -61,6 +63,18 @@ public class LotteryManagementRecordServiceImpl extends ServiceImpl<LotteryManag
 
     @Override
     public LayuiPageInfo findPageBySpec(LotteryManagementRecordParam param) {
+        LoginUser user = LoginContextHolder.getContext().getUser();
+        if (!ObjectUtils.isEmpty(user) && !ObjectUtils.isEmpty(user.getRoleTips()) && user.getRoleTips().size() > 0) {
+            AtomicBoolean isSuper = new AtomicBoolean(true);
+            user.getRoleTips().forEach(role -> {
+                if (role.equals("administrator")) {
+                    isSuper.set(false);
+                }
+            });
+            if (isSuper.get()) {
+                param.setDeptId(user.getDeptId());
+            }
+        }
         Page pageContext = getPageContext();
         QueryWrapper<LotteryManagementRecord> objectQueryWrapper = new QueryWrapper<>();
         if (!ObjectUtils.isEmpty(param.getAccount())) {
