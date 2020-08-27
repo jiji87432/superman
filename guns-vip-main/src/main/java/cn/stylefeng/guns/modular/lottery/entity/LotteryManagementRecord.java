@@ -80,6 +80,18 @@ public class LotteryManagementRecord implements Serializable {
     private String account;
 
     /**
+     * 开始时间
+     */
+    @TableField(value = "start_date", fill = FieldFill.INSERT)
+    private Date startDate;
+
+    /**
+     * 结束时间
+     */
+    @TableField(value = "end_date", fill = FieldFill.INSERT)
+    private Date endDate;
+
+    /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)

@@ -10,6 +10,8 @@ var LotteryManagementRecordInfoDlg = {
         commission: "",
         deptId: "",
         status: "",
+        startDate: "",
+        endDate: "",
         createTime: "",
         createUser: "",
         updateTime: "",
@@ -24,8 +26,17 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
     var $ax = layui.ax;
     var form = layui.form;
     var admin = layui.admin;
+    var laydate = layui.laydate;
 
+    // 渲染时间选择框
+    laydate.render({
+        elem: '#startDate'
+    });
 
+    // 渲染时间选择框
+    laydate.render({
+        elem: '#endDate'
+    });
 
 
 

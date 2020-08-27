@@ -10,6 +10,8 @@ var LotteryManagementRecordInfoDlg = {
         commission: "",
         deptId: "",
         status: "",
+        startDate: "",
+        endDate: "",
         createTime: "",
         createUser: "",
         updateTime: "",
@@ -25,43 +27,16 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'upload', 'formSelects'], function 
     var form = layui.form;
     var admin = layui.admin;
     var form = layui.form;
+    var laydate = layui.laydate;
 
-
-    //普通图片上传
-    upload.render({
-        elem: '#picBtn'
-        , url: Feng.ctxPath + '/system/upload'
-        , before: function (obj) {
-            obj.preview(function (index, file, result) {
-                $('#img1').attr('src', result);
-            });
-        }
-        , done: function (res) {
-            $("#pictureInputHidden").val(res.data.fileId);
-            Feng.success(res.message);
-        }
-        , error: function () {
-            Feng.error("上传图片失败！");
-        }
+    // 渲染时间选择框
+    laydate.render({
+        elem: '#startDate'
     });
 
-    //上传文件
-    upload.render({
-        elem: '#fileBtn'
-        , url: Feng.ctxPath + '/system/upload'
-        , accept: 'file'
-        , before: function (obj) {
-            obj.preview(function (index, file, result) {
-                $("#fileNameTip").html(file.name);
-            });
-        }
-        , done: function (res) {
-            $("#fileInputHidden").val(res.data.fileId);
-            Feng.success(res.message);
-        }
-        , error: function () {
-            Feng.error("上传图片失败！");
-        }
+    // 渲染时间选择框
+    laydate.render({
+        elem: '#endDate'
     });
 
     //表单提交事件

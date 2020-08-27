@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.lottery.model.params;
 
 import lombok.Data;
 import cn.stylefeng.roses.kernel.model.validator.BaseValidatingParam;
+
 import java.util.Date;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -59,6 +60,16 @@ public class LotteryManagementRecordParam implements Serializable, BaseValidatin
      * 状态(字典)
      */
     private String status;
+
+    /**
+     * 创建时间
+     */
+    private Date startDate;
+
+    /**
+     * 创建时间
+     */
+    private Date endDate;
 
     /**
      * 创建时间

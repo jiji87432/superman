@@ -22,54 +22,64 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-
-        id AS "id", lottery_type AS "lotteryType", lottery_type_description AS "lotteryTypeDescription", sales_volume AS "salesVolume", commission AS "commission", dept_id AS "deptId", dept_name AS "deptName",status AS "status", account AS "account", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser", version AS "version", extend AS "extend"
-
+        id                       AS "id",
+        lottery_type             AS "lotteryType",
+        lottery_type_description AS "lotteryTypeDescription",
+        sales_volume             AS "salesVolume",
+        commission               AS "commission",
+        dept_id                  AS "deptId",
+        dept_name                AS "deptName",
+        status                   AS "status",
+        account                  AS "account",
+        start_date               AS "startDate",
+        end_date                 AS "endDate",
+        create_time              AS "createTime",
+        create_user              AS "createUser",
+        update_time              AS "updateTime",
+        update_user              AS "updateUser",
+        version                  AS "version",
+        extend                   AS "extend"
     </sql>
 
 
     <select id="customList" resultType="cn.stylefeng.guns.modular.lottery.model.result.LotteryManagementRecordResult"
             parameterType="cn.stylefeng.guns.modular.lottery.model.params.LotteryManagementRecordParam">
-
         select
 
         <include refid="Base_Column_List"/>
 
-        from lottery_management_record where 1 = 1
-
+        from lottery_management_record
+        where 1 = 1
     </select>
 
     <select id="customMapList" resultType="map"
             parameterType="cn.stylefeng.guns.modular.lottery.model.params.LotteryManagementRecordParam">
-
         select
 
         <include refid="Base_Column_List"/>
 
-        from lottery_management_record where 1 = 1
-
+        from lottery_management_record
+        where 1 = 1
     </select>
 
     <select id="customPageList"
             resultType="cn.stylefeng.guns.modular.lottery.model.result.LotteryManagementRecordResult"
             parameterType="cn.stylefeng.guns.modular.lottery.model.params.LotteryManagementRecordParam">
-
         select
 
         <include refid="Base_Column_List"/>
 
-        from lottery_management_record where 1 = 1
-
+        from lottery_management_record
+        where 1 = 1
     </select>
 
     <select id="customPageMapList" resultType="map"
             parameterType="cn.stylefeng.guns.modular.lottery.model.params.LotteryManagementRecordParam">
-
         select
 
         <include refid="Base_Column_List"/>
 
-        from lottery_management_record where 1 = 1
-
+        from lottery_management_record
+        where 1 = 1
     </select>
 </mapper>

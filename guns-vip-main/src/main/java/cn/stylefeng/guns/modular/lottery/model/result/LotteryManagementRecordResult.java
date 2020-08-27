@@ -62,6 +62,16 @@ public class LotteryManagementRecordResult implements Serializable {
     /**
      * 创建时间
      */
+    private Date startDate;
+
+    /**
+     * 创建时间
+     */
+    private Date endDate;
+
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
     /**

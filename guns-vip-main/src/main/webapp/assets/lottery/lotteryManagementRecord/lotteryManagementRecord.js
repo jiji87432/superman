@@ -28,6 +28,8 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
             {field: 'commission', sort: true, title: '佣金'},
             {field: 'status', hide: true, sort: true, title: '状态(字典)'},
             {field: 'account', hide: false, sort: true, title: '创建用户'},
+            {field: 'startDate', hide: false, sort: true, title: '开始时间'},
+            {field: 'endDate', hide: false, sort: true, title: '结束时间'},
             {field: 'createTime', sort: true, title: '创建时间'},
             {field: 'createUser', hide: true, sort: true, title: '创建人'},
             {field: 'updateTime', hide: true, sort: true, title: '更新时间'},
