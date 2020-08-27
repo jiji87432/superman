@@ -1,6 +1,6 @@
-@layout("/common/_form.html",{js:["/assets/lottery/lotteryManagementRecord/lotteryManagementRecord_add.js"],css:["/assets/expand/module/formSelects/formSelects-v4.css"]}){
+@layout("/common/_form.html",{js:["/assets/fee/feeManagementRecord/feeManagementRecord_add.js"],css:["/assets/expand/module/formSelects/formSelects-v4.css"]}){
 
-<form class="layui-form" id="lotteryManagementRecordForm" lay-filter="lotteryManagementRecordForm">
+<form class="layui-form" id="feeManagementRecordForm" lay-filter="feeManagementRecordForm">
     <div class="layui-fluid" style="padding-bottom: 75px;">
         <div class="layui-card">
             <div class="layui-card-header">基本信息</div>
@@ -9,9 +9,9 @@
                     <input name="id" type="hidden"/>
 
                     <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">彩票类型<span style="color: red;">*</span></label>
+                        <label class="layui-form-label">费用类型<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <select id="lotteryType" name="lotteryType" lay-filter="dataSourceId" required>
+                            <select id="feeType" name="feeType" lay-filter="dataSourceId" required>
                                 <option value=""></option>
                                 @for(item in dictType!){
                                 <option value="${item.code}">${item.name}</option>
@@ -20,16 +20,16 @@
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">销量<span style="color: red;">*</span></label>
+                        <label class="layui-form-label">费用说明<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <input id="salesVolume" name="salesVolume" placeholder="请输入销量" type="text"
+                            <input id="feeDescription" name="feeDescription" placeholder="请输入费用说明" type="text"
                                    class="layui-input" lay-verify="required" required/>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">佣金<span style="color: red;">*</span></label>
+                        <label class="layui-form-label">金额<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <input id="commission" name="commission" placeholder="请输入佣金" type="text" class="layui-input"
+                            <input id="amount" name="amount" placeholder="请输入金额" type="text" class="layui-input"
                                    lay-verify="required" required/>
                         </div>
                     </div>
@@ -47,19 +47,22 @@
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label">开始时间<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <input id="startDate" name="startDate" placeholder="请输入开始时间" type="text" class="layui-input" lay-verify="required" required/>
+                            <input id="startDate" name="startDate" placeholder="请输入开始时间" type="text" class="layui-input"
+                                   lay-verify="required" required/>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label">结束时间<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <input id="endDate" name="endDate" placeholder="请输入结束时间" type="text" class="layui-input" lay-verify="required" required/>
+                            <input id="endDate" name="endDate" placeholder="请输入结束时间" type="text" class="layui-input"
+                                   lay-verify="required" required/>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label">其他说明<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <input id="extend" name="extend" placeholder="请输入扩展字段" type="text" class="layui-input"/>
+                            <input id="extend" name="extend" placeholder="请输入扩展字段" type="text" class="layui-input"
+                                   lay-verify="required" required/>
                         </div>
                     </div>
                 </div>

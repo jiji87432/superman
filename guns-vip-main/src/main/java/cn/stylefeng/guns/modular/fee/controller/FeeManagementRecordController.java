@@ -1,18 +1,16 @@
-package cn.stylefeng.guns.modular.lottery.controller;
+package cn.stylefeng.guns.modular.fee.controller;
 
 import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
 import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.pojo.page.LayuiPageInfo;
-import cn.stylefeng.guns.modular.lottery.entity.LotteryManagementRecord;
-import cn.stylefeng.guns.modular.lottery.model.params.LotteryManagementRecordParam;
-import cn.stylefeng.guns.modular.lottery.service.LotteryManagementRecordService;
+import cn.stylefeng.guns.modular.fee.entity.FeeManagementRecord;
+import cn.stylefeng.guns.modular.fee.model.params.FeeManagementRecordParam;
+import cn.stylefeng.guns.modular.fee.service.FeeManagementRecordService;
 import cn.stylefeng.guns.sys.modular.system.entity.Dept;
 import cn.stylefeng.guns.sys.modular.system.entity.Dict;
-import cn.stylefeng.guns.sys.modular.system.factory.UserFactory;
 import cn.stylefeng.guns.sys.modular.system.model.result.DictResult;
 import cn.stylefeng.guns.sys.modular.system.service.DeptService;
 import cn.stylefeng.guns.sys.modular.system.service.DictService;
-import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -25,74 +23,53 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static cn.stylefeng.guns.base.consts.ConfigConstant.CARD_DICT_TYPE;
+import static cn.stylefeng.guns.base.consts.ConfigConstant.FEE_TYPE;
 import static cn.stylefeng.guns.base.consts.ConfigConstant.LOTTERY_TYPE;
 
 
 /**
- * 彩票记录表控制器
+ * 费用管理记录表控制器
  *
  * @author yongji.zhang
- * @Date 2020-08-10 19:47:33
+ * @Date 2020-08-27 18:07:50
  */
 @Controller
-@RequestMapping("/lotteryManagementRecord")
-public class LotteryManagementRecordController extends BaseController {
+@RequestMapping("/feeManagementRecord")
+public class FeeManagementRecordController extends BaseController {
 
-    private String PREFIX = "/lottery/lotteryManagementRecord";
+    private String PREFIX = "/fee/feeManagementRecord";
 
     @Autowired
-    private LotteryManagementRecordService lotteryManagementRecordService;
+    private FeeManagementRecordService feeManagementRecordService;
     @Autowired
     private DictService dictService;
     @Autowired
     private DeptService deptService;
-    @Autowired
-    private UserService userService;
 
     /**
      * 跳转到主页面
      *
      * @author yongji.zhang
-     * @Date 2020-08-10
+     * @Date 2020-08-27
      */
     @RequestMapping("")
     public String index(Model model) {
-        List<Dict> dictType = dictService.listDictsByCode(LOTTERY_TYPE);
+        List<Dict> dictType = dictService.listDictsByCode(FEE_TYPE);
         model.addAttribute("dictType", dictType);
-        LoginUser user = LoginContextHolder.getContext().getUser();
-        if (!ObjectUtils.isEmpty(user) && !ObjectUtils.isEmpty(user.getRoleTips()) && user.getRoleTips().size() > 0) {
-            AtomicBoolean isSuper = new AtomicBoolean(false);
-            List<Dept> depts = new ArrayList<>();
-            user.getRoleTips().forEach(role -> {
-                if (role.equals("administrator")) {
-                    isSuper.set(true);
-                }
-            });
-            if (isSuper.get()) {
-                depts = deptService.list();
-            } else {
-                QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
-                queryWrapper.eq("dept_id", user.getDeptId());
-                depts = deptService.list(queryWrapper);
-            }
-            model.addAttribute("depts", depts);
-        }
-        return PREFIX + "/lotteryManagementRecord.html";
+        return PREFIX + "/feeManagementRecord.html";
     }
 
     /**
      * 新增页面
      *
      * @author yongji.zhang
-     * @Date 2020-08-10
+     * @Date 2020-08-27
      */
     @RequestMapping("/add")
     public String add(Model model) {
-        List<Dict> dictType = dictService.listDictsByCode(LOTTERY_TYPE);
+        List<Dict> dictType = dictService.listDictsByCode(FEE_TYPE);
         model.addAttribute("dictType", dictType);
         LoginUser user = LoginContextHolder.getContext().getUser();
         if (!ObjectUtils.isEmpty(user) && !ObjectUtils.isEmpty(user.getRoleTips()) && user.getRoleTips().size() > 0) {
@@ -112,18 +89,18 @@ public class LotteryManagementRecordController extends BaseController {
             }
             model.addAttribute("depts", depts);
         }
-        return PREFIX + "/lotteryManagementRecord_add.html";
+        return PREFIX + "/feeManagementRecord_add.html";
     }
 
     /**
      * 编辑页面
      *
      * @author yongji.zhang
-     * @Date 2020-08-10
+     * @Date 2020-08-27
      */
     @RequestMapping("/edit")
     public String edit(Model model) {
-        List<Dict> dictType = dictService.listDictsByCode(LOTTERY_TYPE);
+        List<Dict> dictType = dictService.listDictsByCode(FEE_TYPE);
         model.addAttribute("dictType", dictType);
         LoginUser user = LoginContextHolder.getContext().getUser();
         if (!ObjectUtils.isEmpty(user) && !ObjectUtils.isEmpty(user.getRoleTips()) && user.getRoleTips().size() > 0) {
@@ -143,33 +120,33 @@ public class LotteryManagementRecordController extends BaseController {
             }
             model.addAttribute("depts", depts);
         }
-        return PREFIX + "/lotteryManagementRecord_edit.html";
+        return PREFIX + "/feeManagementRecord_edit.html";
     }
 
     /**
      * 新增接口
      *
      * @author yongji.zhang
-     * @Date 2020-08-10
+     * @Date 2020-08-27
      */
     @RequestMapping("/addItem")
     @ResponseBody
-    public ResponseData addItem(LotteryManagementRecordParam lotteryManagementRecordParam) {
-        DictResult dictResult = dictService.dictDetail(Long.valueOf(lotteryManagementRecordParam.getLotteryType()));
+    public ResponseData addItem(FeeManagementRecordParam feeManagementRecordParam) {
+        DictResult dictResult = dictService.dictDetail(Long.valueOf(feeManagementRecordParam.getFeeType()));
         if (!ObjectUtils.isEmpty(dictResult)) {
-            lotteryManagementRecordParam.setLotteryTypeDescription(dictResult.getName());
+            feeManagementRecordParam.setFeeTypeDescription(dictResult.getName());
         }
         QueryWrapper<Dept> deptQueryWrapper = new QueryWrapper<>();
-        deptQueryWrapper.eq("dept_id", lotteryManagementRecordParam.getDeptId());
+        deptQueryWrapper.eq("dept_id", feeManagementRecordParam.getDeptId());
         Dept dept = deptService.getOne(deptQueryWrapper);
         if (!ObjectUtils.isEmpty(dept)) {
-            lotteryManagementRecordParam.setDeptName(dept.getFullName());
+            feeManagementRecordParam.setDeptName(dept.getFullName());
         }
         LoginUser user = LoginContextHolder.getContext().getUser();
         if (!ObjectUtils.isEmpty(user)) {
-            lotteryManagementRecordParam.setAccount(user.getAccount());
+            feeManagementRecordParam.setAccount(user.getAccount());
         }
-        this.lotteryManagementRecordService.add(lotteryManagementRecordParam);
+        this.feeManagementRecordService.add(feeManagementRecordParam);
         return ResponseData.success();
     }
 
@@ -177,16 +154,16 @@ public class LotteryManagementRecordController extends BaseController {
      * 编辑接口
      *
      * @author yongji.zhang
-     * @Date 2020-08-10
+     * @Date 2020-08-27
      */
     @RequestMapping("/editItem")
     @ResponseBody
-    public ResponseData editItem(LotteryManagementRecordParam lotteryManagementRecordParam) {
-        DictResult dictResult = dictService.dictDetail(Long.valueOf(lotteryManagementRecordParam.getLotteryType()));
+    public ResponseData editItem(FeeManagementRecordParam feeManagementRecordParam) {
+        DictResult dictResult = dictService.dictDetail(Long.valueOf(feeManagementRecordParam.getFeeType()));
         if (!ObjectUtils.isEmpty(dictResult)) {
-            lotteryManagementRecordParam.setLotteryTypeDescription(dictResult.getName());
+            feeManagementRecordParam.setFeeDescription(dictResult.getName());
         }
-        this.lotteryManagementRecordService.update(lotteryManagementRecordParam);
+        this.feeManagementRecordService.update(feeManagementRecordParam);
         return ResponseData.success();
     }
 
@@ -194,12 +171,12 @@ public class LotteryManagementRecordController extends BaseController {
      * 删除接口
      *
      * @author yongji.zhang
-     * @Date 2020-08-10
+     * @Date 2020-08-27
      */
     @RequestMapping("/delete")
     @ResponseBody
-    public ResponseData delete(LotteryManagementRecordParam lotteryManagementRecordParam) {
-        this.lotteryManagementRecordService.delete(lotteryManagementRecordParam);
+    public ResponseData delete(FeeManagementRecordParam feeManagementRecordParam) {
+        this.feeManagementRecordService.delete(feeManagementRecordParam);
         return ResponseData.success();
     }
 
@@ -207,12 +184,12 @@ public class LotteryManagementRecordController extends BaseController {
      * 查看详情接口
      *
      * @author yongji.zhang
-     * @Date 2020-08-10
+     * @Date 2020-08-27
      */
     @RequestMapping("/detail")
     @ResponseBody
-    public ResponseData detail(LotteryManagementRecordParam lotteryManagementRecordParam) {
-        LotteryManagementRecord detail = this.lotteryManagementRecordService.getById(lotteryManagementRecordParam.getId());
+    public ResponseData detail(FeeManagementRecordParam feeManagementRecordParam) {
+        FeeManagementRecord detail = this.feeManagementRecordService.getById(feeManagementRecordParam.getId());
         return ResponseData.success(detail);
     }
 
@@ -220,12 +197,12 @@ public class LotteryManagementRecordController extends BaseController {
      * 查询列表
      *
      * @author yongji.zhang
-     * @Date 2020-08-10
+     * @Date 2020-08-27
      */
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiPageInfo list(LotteryManagementRecordParam lotteryManagementRecordParam) {
-        return this.lotteryManagementRecordService.findPageBySpec(lotteryManagementRecordParam);
+    public LayuiPageInfo list(FeeManagementRecordParam feeManagementRecordParam) {
+        return this.feeManagementRecordService.findPageBySpec(feeManagementRecordParam);
     }
 
 }
