@@ -31,12 +31,14 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'upload', 'formSelects'], function 
 
     // 渲染时间选择框
     laydate.render({
-        elem: '#startDate'
+        elem: '#startDate',
+        type: 'datetime'
     });
 
     // 渲染时间选择框
     laydate.render({
-        elem: '#endDate'
+        elem: '#endDate',
+        type: 'datetime'
     });
 
     //表单提交事件

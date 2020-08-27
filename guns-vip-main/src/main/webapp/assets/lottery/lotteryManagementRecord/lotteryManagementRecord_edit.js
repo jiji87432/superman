@@ -21,7 +21,7 @@ var LotteryManagementRecordInfoDlg = {
     }
 };
 
-layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () {
+layui.use(['form', 'admin', 'ax', 'laydate', 'upload', 'formSelects'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
@@ -30,35 +30,15 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
 
     // 渲染时间选择框
     laydate.render({
-        elem: '#startDate'
+        elem: '#startDate',
+        type: 'datetime'
     });
 
     // 渲染时间选择框
     laydate.render({
-        elem: '#endDate'
+        elem: '#endDate',
+        type: 'datetime'
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     //获取详情信息，填充表单
@@ -80,7 +60,7 @@ layui.use(['form', 'admin', 'ax','laydate','upload','formSelects'], function () 
         return false;
     });
 
-    $('#cancel').click(function(){
+    $('#cancel').click(function () {
         window.location.href = Feng.ctxPath + '/lotteryManagementRecord'
     });
 });
