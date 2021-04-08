@@ -1,13 +1,15 @@
 server:
-  port: 8080
+  port: 7070
   max-http-header-size: 10240
+#  servlet:
+#    context-path: /guns
 
 beetl:
   resource-auto-check: true         #热加载beetl模板，开发时候用
 
 spring:
   profiles:
-    active: @spring.active@
+    active: local
   mvc:
     view:
       prefix: /pages
@@ -35,4 +37,4 @@ mybatis-plus:
       table-underline: true
 
 log:
-  path: _app_logs
+  path: guns_app_logs

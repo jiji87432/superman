@@ -35,6 +35,7 @@
         <kaptcha.version>2.3.2</kaptcha.version>
         <beetl.version>2.9.3</beetl.version>
         <swagger.version>2.9.2</swagger.version>
+        <asm.version>3.3.1</asm.version>
         <jwt.version>0.9.0</jwt.version>
         <oshi.version>3.9.1</oshi.version>
         <just.auth.version>1.9.5</just.auth.version>
@@ -42,7 +43,9 @@
         <batik.version>1.7</batik.version>
         <docker.img.version>latest</docker.img.version>
         <kernel.version>2.2.12</kernel.version>
-        <asm.version>3.3.1</asm.version>
+        <lombok.version>1.18.16</lombok.version>
+        <javassist.version>3.20.0-GA</javassist.version>
+        <guava.version>26.0-jre</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -277,6 +280,22 @@
                 <groupId>asm</groupId>
                 <artifactId>asm</artifactId>
                 <version>${asm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist.version}</version>
             </dependency>
         </dependencies>
 
