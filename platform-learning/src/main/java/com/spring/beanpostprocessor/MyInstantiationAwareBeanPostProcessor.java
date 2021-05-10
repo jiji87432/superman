@@ -1,4 +1,4 @@
-package com.beanpostprocessor;
+package com.spring.beanpostprocessor;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyValues;

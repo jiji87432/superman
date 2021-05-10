@@ -1,6 +1,9 @@
-package com.beanpostprocessor;
+package com.spring.beanpostprocessor;
 
-public class DemoServiceImpl implements DemoService,NameInit {
+/**
+ * @author jiji
+ */
+public class DemoServiceImpl implements DemoService, NameInit {
     private String name;
 
     @Override

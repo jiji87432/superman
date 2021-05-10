@@ -1,4 +1,4 @@
-package com.beanpostprocessor;
+package com.spring.beanpostprocessor;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * @author lenovo
  * @time 2016年4月21日
  */
-//@Configuration
 public class NameBeanPostProcessor implements BeanPostProcessor {
     String name;
 

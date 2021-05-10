@@ -1,10 +1,10 @@
-package com.beanpostprocessor;
+package com.spring.beanpostprocessor;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 /**
- * Created by yanxiao on 2016/8/1.
+ * @author jiji
  */
 public class MyBeanPostProcessor implements BeanPostProcessor {
 

@@ -1,10 +1,13 @@
-package com.beanpostprocessor;
+package com.spring.beanpostprocessor;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
+/**
+ * @author jiji
+ */
 public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
     public MyBeanFactoryPostProcessor() {
@@ -20,6 +23,6 @@ public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
         System.out.println("【BeanFactoryPostProcessor接口】调用BeanFactoryPostProcessor接口的postProcessBeanFactory方法");
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition("studentBean");
         beanDefinition.getPropertyValues()
-                      .addPropertyValue("age", "21");
+                .addPropertyValue("age", "21");
     }
 }
